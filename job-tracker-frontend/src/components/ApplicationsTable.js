@@ -10,7 +10,6 @@ function ApplicationsTable(props) {
                 <th scope='col'>Applying Date</th>
                 <th scope='col'>Company Name</th>
                 <th scope='col'>Job Title</th>
-                <th scope='col'>Job Url</th>
                 <th scope='col'>Response Date</th>
                 <th scope='col'>Resourse</th>
                 <th scope='col'>Satus</th>
