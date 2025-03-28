@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
-import './App.css';
-import ApplicationsTable from './components/ApplicationsTable';
-import NewApplicationForm from './components/NewApplicationForm';
+import React, { useState } from "react";
+import "./App.css";
+import ApplicationsTable from "./components/ApplicationsTable";
+import NewApplicationForm from "./components/NewApplicationForm";
 
 function App() {
-
   const [showAddApplForm, setShowAddApplForm] = useState(false);
 
   const [applications, setApplications] = useState([
@@ -16,9 +15,9 @@ function App() {
       jobUrl: "https://www.linkedin.com/jobs/view/4153687822",
       dateResponse: "18.03.2025",
       jobAddResourse: "LinkedIn",
-      applicationStatus: "rejected"
+      applicationStatus: "rejected",
     },
-    {      
+    {
       rowNumber: 2,
       dateApplying: "15.03.2025",
       nameOfCompany: "Antaes Consulting",
@@ -26,52 +25,46 @@ function App() {
       jobUrl: "https://www.linkedin.com/jobs/view/4175884518",
       dateResponse: "18.03.2025",
       jobAddResourse: "LinkedIn",
-      applicationStatus: "rejected"}
-  ]
-  )
-  
+      applicationStatus: "rejected",
+    },
+  ]);
+
   const addAplication = (nameOfCompany, jobTitle, jobUrl, dateResponse, jobAddResourse, applicationStatus) => {
-    let rowNumber = 0;
+    let rowNumber = applications.length > 0 ? applications[applications.length - 1].rowNumber + 1 : 1;
+    
+    const newApplication = {
+      rowNumber,
+      dateApplying: new Date().toISOString().split("T")[0], // Current date
+      nameOfCompany,
+      jobTitle,
+      jobUrl,
+      dateResponse,
+      jobAddResourse,
+      applicationStatus,
+    };
 
-    if (applications.length > 0) {
-        rowNumber = applications[applications.length - 1].rowNumber + 1;
-      } else {
-        rowNumber = 1;
-      }
-      const newApplication = {
-        rowNumber: rowNumber,
-        dateApplying: "new date",
-        nameOfCompany: nameOfCompany,
-        jobTitle: jobTitle,
-        jobUrl: jobUrl,
-        dateResponse: dateResponse,
-        jobAddResourse: jobAddResourse,
-        applicationStatus: applicationStatus
-      };
-      setApplications(applications => [...applications, newApplication])
-    } 
-  
+    setApplications((prevApplications) => [...prevApplications, newApplication]);
+    setShowAddApplForm(false); // Close modal after submitting
+  };
+
   const deleteApplication = (deleteApplicationRowNumber) => {
-    let filtered = applications.filter(function (value) {
-      return value.rowNumber !== deleteApplicationRowNumber;
-    });
-
-    setApplications(filtered);
-  }  
-  
+    setApplications(applications.filter((value) => value.rowNumber !== deleteApplicationRowNumber));
+  };
 
   return (
     <div className="mt-5 container">
       <div className="card">
-        <div className="card-header">
-          My Applications
-        </div>
+        <div className="card-header">My Applications</div>
         <div className="card-body">
-          <ApplicationsTable applications={applications} deleteApplication={deleteApplication}/>
-          <button className="btn btn-primary" onClick={() => setShowAddApplForm(!showAddApplForm)}>
-            {showAddApplForm ? 'Close New Application Form' : 'New Application'}
+          <ApplicationsTable applications={applications} deleteApplication={deleteApplication} />
+          
+          {/* Button to open modal */}
+          <button className="btn btn-primary" onClick={() => setShowAddApplForm(true)}>
+            New Application
           </button>
-          {showAddApplForm && <NewApplicationForm addAplication={addAplication}/>}
+
+          {/* New Application Form Modal */}
+          <NewApplicationForm show={showAddApplForm} setShow={setShowAddApplForm} addAplication={addAplication} />
         </div>
       </div>
     </div>
