@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import ApplicationsTable from "./components/ApplicationsTable";
+import HomePage from "./pages/HomePage";
 import NewApplicationForm from "./components/NewApplicationForm";
 
 function App() {
@@ -56,7 +56,7 @@ function App() {
       <div className="card">
         <div className="card-header">My Applications</div>
         <div className="card-body">
-          <ApplicationsTable applications={applications} deleteApplication={deleteApplication} />
+          <HomePage applications={applications} deleteApplication={deleteApplication} />
           
           {/* Button to open modal */}
           <button className="btn btn-primary" onClick={() => setShowAddApplForm(true)}>
