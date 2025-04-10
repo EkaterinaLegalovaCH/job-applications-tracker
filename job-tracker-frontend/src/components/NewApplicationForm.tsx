@@ -14,7 +14,7 @@ interface NewApplicationFormProps {
 }
 
 
-const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, addAplication }) => {
+export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, addAplication }) => {
   const [nameOfCompany, setNameOfCompany] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [jobUrl, setJobUrl] = useState("");
@@ -84,8 +84,5 @@ const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, 
   );
 }
 
-export default NewApplicationForm;
-function addAplication(nameOfCompany: string, jobTitle: string, jobUrl: string, dateResponse: string, jobAddResourse: string, applicationStatus: string) {
-  throw new Error("Function not implemented.");
-}
+
 

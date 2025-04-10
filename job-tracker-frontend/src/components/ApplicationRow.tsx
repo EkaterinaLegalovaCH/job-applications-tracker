@@ -1,14 +1,16 @@
-function ApplicationRow(props: {
-        rowNumber: number,
-        dateApplying: string,
-        nameOfCompany: string,
-        jobTitle: string,
-        jobUrl: string,
-        dateResponse: string,
-        jobAddResourse: string,
-        applicationStatus: string,
-        deleteApplication: Function
-}) {
+import React, { FC } from "react";
+
+export const ApplicationRow: React.FC<{
+    rowNumber: number,
+    dateApplying: string,
+    nameOfCompany: string,
+    jobTitle: string,
+    jobUrl: string,
+    dateResponse: string,
+    jobAddResourse: string,
+    applicationStatus: string,
+    deleteApplication: Function
+}> = (props) => {
 
     return (
         <tr onClick={() => props.deleteApplication(props.rowNumber)}>
@@ -23,5 +25,3 @@ function ApplicationRow(props: {
     )
 
 }
-
-export default ApplicationRow

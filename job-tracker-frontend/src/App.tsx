@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 import HomePage from "./pages/HomePage";
-import NewApplicationForm from "./components/NewApplicationForm";
+import { NewApplicationForm } from "./components/NewApplicationForm";
 
-function App() {
+export const App = () => {
   const [showAddApplForm, setShowAddApplForm] = useState(false);
 
   const [applications, setApplications] = useState([
@@ -71,4 +71,3 @@ function App() {
   );
 }
 
-export default App;

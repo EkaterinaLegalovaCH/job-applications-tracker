@@ -1,6 +1,6 @@
-import ApplicationRow from './ApplicationRow';
+import { ApplicationRow } from './ApplicationRow';
 
-function ApplicationsTable(props: {applications: ApplicationModel[], deleteApplication: Function}) {
+export const ApplicationsTable: React.FC<{applications: ApplicationModel[], deleteApplication: Function}> = (props) => {
     
     return (
         <table className="table table-hover">
@@ -37,4 +37,3 @@ function ApplicationsTable(props: {applications: ApplicationModel[], deleteAppli
     )
 }
 
-export default ApplicationsTable
