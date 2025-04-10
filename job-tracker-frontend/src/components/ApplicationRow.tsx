@@ -1,4 +1,14 @@
-function ApplicationRow(props) {
+function ApplicationRow(props: {
+        rowNumber: number,
+        dateApplying: string,
+        nameOfCompany: string,
+        jobTitle: string,
+        jobUrl: string,
+        dateResponse: string,
+        jobAddResourse: string,
+        applicationStatus: string,
+        deleteApplication: Function
+}) {
 
     return (
         <tr onClick={() => props.deleteApplication(props.rowNumber)}>

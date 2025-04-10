@@ -1,6 +1,6 @@
 import ApplicationRow from './ApplicationRow';
 
-function ApplicationsTable(props) {
+function ApplicationsTable(props: {applications: ApplicationModel[], deleteApplication: Function}) {
     
     return (
         <table className="table table-hover">

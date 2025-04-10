@@ -4,11 +4,11 @@ import Dashboard from "../components/Dashboard";
 import Footer from "../components/Footer";
 
 
-function HomePage({applications, deleteApplication}) {
+function HomePage(props: {applications: ApplicationModel[], deleteApplication: Function}) {
     return (
         <div>
             <Navbar/>
-            <Dashboard applications={applications} deleteApplication={deleteApplication}/>
+            <Dashboard applications={props.applications} deleteApplication={props.deleteApplication}/>
             <Footer/>
         </div>
     );

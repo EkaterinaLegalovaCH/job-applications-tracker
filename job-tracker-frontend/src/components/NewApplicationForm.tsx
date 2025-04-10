@@ -1,6 +1,20 @@
 import React, { useState } from "react";
 
-function NewApplicationForm({ show, setShow, addAplication }) {
+interface NewApplicationFormProps {
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  addAplication: (
+    nameOfCompany: string,
+    jobTitle: string,
+    jobUrl: string,
+    dateResponse: string,
+    jobAddResourse: string,
+    applicationStatus: string
+  ) => void;
+}
+
+
+const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, addAplication }) => {
   const [nameOfCompany, setNameOfCompany] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [jobUrl, setJobUrl] = useState("");
@@ -23,7 +37,7 @@ function NewApplicationForm({ show, setShow, addAplication }) {
   return (
     <>
       {show && (
-        <div className="modal fade show d-block" tabIndex="-1">
+        <div className="modal fade show d-block" tabIndex={-1} >
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -71,3 +85,7 @@ function NewApplicationForm({ show, setShow, addAplication }) {
 }
 
 export default NewApplicationForm;
+function addAplication(nameOfCompany: string, jobTitle: string, jobUrl: string, dateResponse: string, jobAddResourse: string, applicationStatus: string) {
+  throw new Error("Function not implemented.");
+}
+

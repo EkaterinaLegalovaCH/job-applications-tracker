@@ -29,7 +29,7 @@ function App() {
     },
   ]);
 
-  const addAplication = (nameOfCompany, jobTitle, jobUrl, dateResponse, jobAddResourse, applicationStatus) => {
+  const addAplication = (nameOfCompany: string, jobTitle: string, jobUrl: string, dateResponse: string, jobAddResourse: string, applicationStatus: string) => {
     let rowNumber = applications.length > 0 ? applications[applications.length - 1].rowNumber + 1 : 1;
     
     const newApplication = {
@@ -47,7 +47,7 @@ function App() {
     setShowAddApplForm(false); // Close modal after submitting
   };
 
-  const deleteApplication = (deleteApplicationRowNumber) => {
+  const deleteApplication = (deleteApplicationRowNumber: number) => {
     setApplications(applications.filter((value) => value.rowNumber !== deleteApplicationRowNumber));
   };
 
