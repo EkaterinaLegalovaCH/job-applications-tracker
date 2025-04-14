@@ -52,10 +52,7 @@ export const App = () => {
   };
 
   return (
-    <div className="mt-5 container">
-      <div className="card">
-        <div className="card-header">My Applications</div>
-        <div className="card-body">
+        <div>
           <HomePage applications={applications} deleteApplication={deleteApplication} />
           
           {/* Button to open modal */}
@@ -65,8 +62,6 @@ export const App = () => {
 
           {/* New Application Form Modal */}
           <NewApplicationForm show={showAddApplForm} setShow={setShowAddApplForm} addAplication={addAplication} />
-        </div>
-      </div>
     </div>
   );
 }
