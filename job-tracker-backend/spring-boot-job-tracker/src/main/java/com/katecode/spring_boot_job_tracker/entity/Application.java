@@ -1,0 +1,42 @@
+package com.katecode.spring_boot_job_tracker.entity;
+
+import lombok.Data;
+import jakarta.persistence.*;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "application")
+@Data
+public class Application {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "job_title")
+    private String jobTitle;
+
+    @Column(name = "company_name")
+    private String companyName;
+
+    @Column(name = "application_url")
+    private String applicationUrl;
+
+    @Column(name = "application_date")
+    private LocalDate applicationDate;
+
+    private String source;
+
+    @Column(name = "response_date")
+    private LocalDate responseDate;
+
+    private String status;
+
+    @Column(name = "next_step")
+    private String nextStep;
+
+    private String notes;
+
+    private String img;
+}

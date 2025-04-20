@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./App.css";
-import HomePage from "./pages/HomePage";
+import { HomePage } from "./layouts/homepage/HomePage";
+import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 import { NewApplicationForm } from "./components/NewApplicationForm";
 
 export const App = () => {
@@ -52,7 +54,8 @@ export const App = () => {
   };
 
   return (
-        <div>
+        <>
+          <Navbar/>
           <HomePage applications={applications} deleteApplication={deleteApplication} />
           
           {/* Button to open modal */}
@@ -62,7 +65,8 @@ export const App = () => {
 
           {/* New Application Form Modal */}
           <NewApplicationForm show={showAddApplForm} setShow={setShowAddApplForm} addAplication={addAplication} />
-    </div>
+          <Footer/>
+    </>
   );
 }
 
