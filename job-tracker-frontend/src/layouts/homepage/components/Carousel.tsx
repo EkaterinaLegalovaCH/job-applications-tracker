@@ -13,7 +13,7 @@ export const Carousel = () => {
 
       const baseUrl: string = "http://localhost:8080/api/applications";
 
-      const url: string =  `${baseUrl}?page=0&size=9`;
+      const url: string =  `${baseUrl}`;
 
       const response = await fetch(url);
 
@@ -60,7 +60,7 @@ export const Carousel = () => {
   if (httpError) {
     return (
       <div className="container mt-5">
-        <p>{httpError}</p>
+        <p>Hi there!{httpError}</p>
       </div>
     )
   }
