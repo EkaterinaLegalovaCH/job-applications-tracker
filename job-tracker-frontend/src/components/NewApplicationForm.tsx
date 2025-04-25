@@ -1,20 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 interface NewApplicationFormProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  addAplication: (
-    nameOfCompany: string,
-    jobTitle: string,
-    jobUrl: string,
-    dateResponse: string,
-    jobAddResourse: string,
-    applicationStatus: string
-  ) => void;
 }
 
 
-export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, addAplication }) => {
+export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, }) => {
   const [nameOfCompany, setNameOfCompany] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [jobUrl, setJobUrl] = useState("");
@@ -22,15 +15,43 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
   const [jobAddResourse, setJobAddResourse] = useState("");
   const [applicationStatus, setApplicationStatus] = useState("");
 
-  const submitApplication = () => {
+  const submitApplication = async () => {
     if (nameOfCompany && jobTitle && jobUrl && dateResponse && jobAddResourse && applicationStatus) {
-      addAplication(nameOfCompany, jobTitle, jobUrl, dateResponse, jobAddResourse, applicationStatus);
-      setNameOfCompany("");
-      setJobTitle("");
-      setJobUrl("");
-      setDateResponse("");
-      setJobAddResourse("");
-      setApplicationStatus("");
+      const payload = {
+        companyName: nameOfCompany,
+        jobTitle: jobTitle,
+        applicationUrl: jobUrl,
+        responseDate: dateResponse,
+        source: jobAddResourse,
+        status: applicationStatus,
+        applicationDate: new Date().toISOString().split("T")[0],
+        nextStep: "",
+        notes: "",
+        img: ""
+      };
+
+      try {
+        await axios.post("http://localhost:8080/applications", payload, {
+          headers: {
+            "Content-type": "application/json",        
+          },
+        });
+      
+        alert("Application added successfully!");  
+
+        setNameOfCompany("");
+        setJobTitle("");
+        setJobUrl("");
+        setDateResponse("");
+        setJobAddResourse("");
+        setApplicationStatus("");
+        setShow(false); // Close modal after submitting
+      } catch (error) {
+        console.error("Error submiting application:", error);
+        alert("Failed to submit application. Please try again.");
+      }
+    } else {
+      alert("Please fill in all fields.");
     }
   };
 

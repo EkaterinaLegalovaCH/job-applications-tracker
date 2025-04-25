@@ -1,4 +1,6 @@
+import ApplicationModel from '../models/ApplicationModel';
 import { ApplicationRow } from './ApplicationRow';
+
 
 export const ApplicationsTable: React.FC<{applications: ApplicationModel[], deleteApplication: Function}> = (props) => {
     

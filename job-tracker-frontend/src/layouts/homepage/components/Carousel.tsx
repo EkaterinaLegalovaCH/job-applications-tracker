@@ -1,6 +1,70 @@
 import { ReturnApplication } from "./ReturnApplication";
+import { useEffect, useState } from "react";
+import ApplicationModel from "../../../models/ApplicationModel";
+import { SpinnerLoading } from "../../utils/SpinnerLoading";
 
 export const Carousel = () => {
+  const [applications, setApplications] = useState<ApplicationModel[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState(null);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+
+      const baseUrl: string = "http://localhost:8080/api/applications";
+
+      const url: string =  `${baseUrl}?page=0&size=9`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+      
+      const responseJson = await response.json();
+
+      const responseData = responseJson._embedded.applications;
+
+      const LoadedApplications: ApplicationModel[] = [];
+      for (const key in responseData) {
+        LoadedApplications.push({
+          rowNumber: responseData[key].id,
+          dateApplying: responseData[key].applicationDate,
+          nameOfCompany: responseData[key].companyName,
+          jobTitle: responseData[key].jobTitle,
+          jobUrl: responseData[key].applicationUrl,
+          dateResponse: responseData[key].responseDate,
+          jobAddResourse: responseData[key].source,
+          applicationStatus: responseData[key].status
+        });
+      }
+      setApplications(LoadedApplications);
+      setIsLoading(false);
+    };
+
+    fetchApplications().catch((error: any) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="container mt-5">
+        <SpinnerLoading />
+      </div>
+    )
+  }
+
+  if (httpError) {
+    return (
+      <div className="container mt-5">
+        <p>{httpError}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="container mt-5" style={{ height: 550 }}>
       <div className="homepage-carousel-title">
@@ -15,23 +79,23 @@ export const Carousel = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
-              <ReturnApplication/>
-              <ReturnApplication/>
-              <ReturnApplication/>
+            {applications.map((application) => (
+                <ReturnApplication key={application.rowNumber} application={application} />
+              ))}
             </div>
           </div>
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
-              <ReturnApplication/>
-              <ReturnApplication/>
-              <ReturnApplication/>
+              {applications.map((application) => (
+                <ReturnApplication key={application.rowNumber} application={application} />
+              ))}
             </div>
           </div>
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
-              <ReturnApplication/>
-              <ReturnApplication/>
-              <ReturnApplication/>
+            {applications.map((application) => (
+                <ReturnApplication key={application.rowNumber} application={application} />
+              ))}
             </div>
           </div>
         </div>
@@ -63,7 +127,9 @@ export const Carousel = () => {
       {/* Mobile */}
       <div className="d-lg-none mt-3">
         <div className="row d-flex justify-content-center align-items-center">
-          <ReturnApplication/>
+              {applications.map((application) => (
+                <ReturnApplication key={application.rowNumber} application={application} />
+              ))}
         </div>
       </div>
       <div className="homepage-carousel-title mt-3">

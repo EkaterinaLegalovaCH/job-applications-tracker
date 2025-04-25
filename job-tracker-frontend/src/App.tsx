@@ -31,23 +31,6 @@ export const App = () => {
     },
   ]);
 
-  const addAplication = (nameOfCompany: string, jobTitle: string, jobUrl: string, dateResponse: string, jobAddResourse: string, applicationStatus: string) => {
-    let rowNumber = applications.length > 0 ? applications[applications.length - 1].rowNumber + 1 : 1;
-    
-    const newApplication = {
-      rowNumber,
-      dateApplying: new Date().toISOString().split("T")[0], // Current date
-      nameOfCompany,
-      jobTitle,
-      jobUrl,
-      dateResponse,
-      jobAddResourse,
-      applicationStatus,
-    };
-
-    setApplications((prevApplications) => [...prevApplications, newApplication]);
-    setShowAddApplForm(false); // Close modal after submitting
-  };
 
   const deleteApplication = (deleteApplicationRowNumber: number) => {
     setApplications(applications.filter((value) => value.rowNumber !== deleteApplicationRowNumber));
@@ -64,7 +47,7 @@ export const App = () => {
           </button>
 
           {/* New Application Form Modal */}
-          <NewApplicationForm show={showAddApplForm} setShow={setShowAddApplForm} addAplication={addAplication} />
+          <NewApplicationForm show={showAddApplForm} setShow={setShowAddApplForm} />
           <Footer/>
     </>
   );

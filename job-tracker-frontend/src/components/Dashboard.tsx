@@ -1,5 +1,6 @@
 import React from "react";
 import { ApplicationsTable } from "./ApplicationsTable";
+import ApplicationModel from "../models/ApplicationModel";
 
 function Dashboard(props: { applications: ApplicationModel[]; deleteApplication: Function; }) {
     return (
