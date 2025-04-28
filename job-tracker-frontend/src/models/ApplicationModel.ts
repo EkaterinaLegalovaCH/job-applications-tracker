@@ -6,8 +6,7 @@ class ApplicationModel {
     jobUrl: string;
     dateResponse: string;
     jobAddResourse: string;
-    applicationStatus: string;
-    
+    applicationStatus: string;   
 
     constructor(
         rowNumber: number,
@@ -17,7 +16,7 @@ class ApplicationModel {
         jobUrl: string,
         dateResponse: string,
         jobAddResourse: string,
-        applicationStatus: string
+        applicationStatus: string,
         
     ) {
         this.rowNumber = rowNumber;
@@ -28,7 +27,7 @@ class ApplicationModel {
         this.dateResponse = dateResponse;
         this.jobAddResourse = jobAddResourse;
         this.applicationStatus = applicationStatus;
-        
+    
     }
 }
 export default ApplicationModel;

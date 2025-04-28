@@ -13,7 +13,7 @@ export const Carousel = () => {
 
       const baseUrl: string = "http://localhost:8080/api/applications";
 
-      const url: string =  `${baseUrl}`;
+      const url: string =  `${baseUrl}?page=0&size=5`;
 
       const response = await fetch(url);
 

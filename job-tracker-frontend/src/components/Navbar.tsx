@@ -23,7 +23,7 @@ export const Navbar:React.FC = () => {
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="../layouts/applicationsDashboardPge/ApplicationsDashboardPage.tsx">
               Applications
             </a>
           </li>
