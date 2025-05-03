@@ -2,6 +2,7 @@ import { ReturnApplication } from "./ReturnApplication";
 import { useEffect, useState } from "react";
 import ApplicationModel from "../../../models/ApplicationModel";
 import { SpinnerLoading } from "../../utils/SpinnerLoading";
+import { Link } from "react-router-dom";
 
 export const Carousel = () => {
   const [applications, setApplications] = useState<ApplicationModel[]>([]);
@@ -133,9 +134,9 @@ export const Carousel = () => {
         </div>
       </div>
       <div className="homepage-carousel-title mt-3">
-        <a className="btn btn-outline-secondary btn-lg" href="#">
+        <Link className="btn btn-outline-secondary btn-lg" to="/applications">
           View More
-        </a>
+        </Link>
       </div>
     </div>
   );

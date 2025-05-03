@@ -1,28 +1,36 @@
-import React, { useEffect ,useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { HomePage } from "./layouts/homepage/HomePage";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { ApplicationsDashboardPage } from "./layouts/applicationsDashboardPage/ApplicationsDashboardPage";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
+import { ApplicationCheckoutPage } from "./layouts/ApplicationCheckoutPage/ApplicationCheckoutPage";
 
 export const App = () => {
   return (
-        <>
-          <Navbar/>
-          <Switch>
-          <Route path='/' exact>
+    <div className="d-flex flex-column min-vh-100">
+      <Navbar />
+      <div className="flex-grow-1">
+        <Switch>
+          <Route path="/" exact>
+            <Redirect to="/home" />
+          </Route>
+
+          <Route path="/home">
             <HomePage />
           </Route>
-          
-          <Route path='/applications'>
+
+          <Route path="/applications">
             <ApplicationsDashboardPage />
           </Route>
-          </Switch>
-          
 
-          <Footer/>
-    </>
+          <Route path="/checkout/:applicationId">
+            <ApplicationCheckoutPage />
+          </Route>
+        </Switch>
+      </div>
+      <Footer />
+    </div>
   );
-}
-
+};
