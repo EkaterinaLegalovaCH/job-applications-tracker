@@ -68,17 +68,73 @@ export const ApplicationCheckoutPage = () => {
             const logoUrl = `https://logo.clearbit.com/${sanitizedName}.com`;
             console.log("🛠️ Generated logo URL:", logoUrl);
           }
-    return(
-        <div>
-            <div className="container d-none d-lg-block">
-                <div className="row mt-5">
-                    <div className="col-sm-2 col-md-2">
-                      <div>
-                        {application && <ReturnApplication key={application.rowNumber} application={application} />}
-                      </div>
-                    </div>  
+          return (
+            <div className="container mt-5">
+              <div className="row mb-4">
+                <div className="col-md-2 text-center">
+                  <img
+                    src={`https://logo.clearbit.com/${application?.nameOfCompany?.toLowerCase().replace(/\s+/g, '')}.com`}
+                    alt={`${application?.nameOfCompany ?? ""} logo`}
+                    width="120"
+                    height="120"
+                    className="img-fluid rounded"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/default-logo.png";
+                    }}
+                  />
                 </div>
+                <div className="col-md-10 d-flex flex-column justify-content-center">
+                  <h2>{application?.nameOfCompany}</h2>
+                  <h5 className="text-primary">{application?.jobTitle}</h5>
+                  <a href={application?.jobUrl} target="_blank" rel="noopener noreferrer">
+                    View Job Posting
+                  </a>
+                </div>
+              </div>
+          
+              <div className="card p-4 shadow-sm">
+                <div className="row mb-3">
+                  <div className="col-md-6">
+                    <label className="form-label">Application Date</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={application?.dateApplying || ""}
+                      readOnly
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label className="form-label">Response Date</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={application?.dateResponse || "—"}
+                      readOnly
+                    />
+                  </div>
+                </div>
+          
+                <div className="row mb-3">
+                  <div className="col-md-6">
+                    <label className="form-label">Source</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={application?.jobAddResourse || ""}
+                      readOnly
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label className="form-label">Status</label>
+                    <input
+                      className="form-control"
+                      type="text"
+                      value={application?.applicationStatus || ""}
+                      readOnly
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-    );
+          );
 }
