@@ -14,7 +14,7 @@ export const Carousel = () => {
 
       const baseUrl: string = "http://localhost:8080/api/applications";
 
-      const url: string =  `${baseUrl}?page=0&size=5`;
+      const url: string =  `${baseUrl}?page=0&size=3`;
 
       const response = await fetch(url);
 
@@ -28,16 +28,22 @@ export const Carousel = () => {
 
       const LoadedApplications: ApplicationModel[] = [];
       for (const key in responseData) {
-        LoadedApplications.push({
-          rowNumber: responseData[key].id,
-          dateApplying: responseData[key].applicationDate,
-          nameOfCompany: responseData[key].companyName,
-          jobTitle: responseData[key].jobTitle,
-          jobUrl: responseData[key].applicationUrl,
-          dateResponse: responseData[key].responseDate,
-          jobAddResourse: responseData[key].source,
-          applicationStatus: responseData[key].status
-        });
+        const app = responseData[key];
+        const idHref = app._links?.self?.href || "";
+        const id = Number(idHref.split("/").pop());
+
+        LoadedApplications.push(    
+          new ApplicationModel(
+            id,
+            app.applicationDate,
+            app.companyName,
+            app.jobTitle,
+            app.applicationUrl,
+            app.responseDate,
+            app.source,
+            app.status
+          )
+        );
       }
       setApplications(LoadedApplications);
       setIsLoading(false);
