@@ -21,7 +21,7 @@ export const ApplicationsTable: React.FC<{applications: ApplicationModel[], dele
 
                 {props.applications.map(application => (
                     <ApplicationRow
-                        key={application.rowNumber}
+                        key={application.id}
                         application={application}
                     />
                 ))}

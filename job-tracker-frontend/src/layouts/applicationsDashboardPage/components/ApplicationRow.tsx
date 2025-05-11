@@ -7,7 +7,7 @@ export const ApplicationRow: React.FC<{
 
     return (
         <tr >
-            <th scope='row'>{props.application.rowNumber}</th>
+            <th scope='row'>{props.application.id}</th>
             <td>{props.application.dateApplying}</td>
             <td>{props.application.nameOfCompany}</td>
             <td><a href={props.application.jobUrl} target="_blank" rel="noopener noreferrer">{props.application.jobTitle}</a></td>

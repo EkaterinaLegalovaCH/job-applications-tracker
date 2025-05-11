@@ -11,17 +11,16 @@ export const Carousel = () => {
 
   useEffect(() => {
     const fetchApplications = async () => {
-
       const baseUrl: string = "http://localhost:8080/api/applications";
 
-      const url: string =  `${baseUrl}?page=0&size=3`;
+      const url: string = `${baseUrl}?page=0&size=3`;
 
       const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error("Something went wrong!");
       }
-      
+
       const responseJson = await response.json();
 
       const responseData = responseJson._embedded.applications;
@@ -30,11 +29,11 @@ export const Carousel = () => {
       for (const key in responseData) {
         const app = responseData[key];
         const idHref = app._links?.self?.href || "";
-        const id = Number(idHref.split("/").pop());
+        
 
-        LoadedApplications.push(    
+        LoadedApplications.push(
           new ApplicationModel(
-            id,
+            app.id,
             app.applicationDate,
             app.companyName,
             app.jobTitle,
@@ -53,7 +52,6 @@ export const Carousel = () => {
       setIsLoading(false);
       setHttpError(error.message);
     });
-
   }, []);
 
   if (isLoading) {
@@ -61,7 +59,7 @@ export const Carousel = () => {
       <div className="container mt-5">
         <SpinnerLoading />
       </div>
-    )
+    );
   }
 
   if (httpError) {
@@ -69,7 +67,7 @@ export const Carousel = () => {
       <div className="container mt-5">
         <p>Hi there!{httpError}</p>
       </div>
-    )
+    );
   }
 
   return (
@@ -86,22 +84,31 @@ export const Carousel = () => {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
-            {applications.map((application) => (
-                <ReturnApplication key={application.rowNumber} application={application} />
+              {applications.map((application) => (
+                <ReturnApplication
+                  key={application.id}
+                  application={application}
+                />
               ))}
             </div>
           </div>
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
               {applications.map((application) => (
-                <ReturnApplication key={application.rowNumber} application={application} />
+                <ReturnApplication
+                  key={application.id}
+                  application={application}
+                />
               ))}
             </div>
           </div>
           <div className="carousel-item active">
             <div className="row d-flex justify-content-center align-items-center">
-            {applications.map((application) => (
-                <ReturnApplication key={application.rowNumber} application={application} />
+              {applications.map((application) => (
+                <ReturnApplication
+                  key={application.id}
+                  application={application}
+                />
               ))}
             </div>
           </div>
@@ -134,9 +141,12 @@ export const Carousel = () => {
       {/* Mobile */}
       <div className="d-lg-none mt-3">
         <div className="row d-flex justify-content-center align-items-center">
-              {applications.map((application) => (
-                <ReturnApplication key={application.rowNumber} application={application} />
-              ))}
+          {applications.map((application) => (
+            <ReturnApplication
+              key={application.id}
+              application={application}
+            />
+          ))}
         </div>
       </div>
       <div className="homepage-carousel-title mt-3">

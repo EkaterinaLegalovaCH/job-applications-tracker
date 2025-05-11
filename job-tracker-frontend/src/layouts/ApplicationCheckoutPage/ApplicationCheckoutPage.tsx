@@ -10,6 +10,8 @@ export const ApplicationCheckoutPage = () => {
     const [httpError, setHttpError] = useState(null);
 
     const applicationId = (window.location.pathname).split("/")[2];
+    
+    
 
     useEffect(() => {
         const fetchApplication = async () => {
@@ -25,7 +27,7 @@ export const ApplicationCheckoutPage = () => {
           const responseJson = await response.json();
     
           const LoadedApplication: ApplicationModel =  {
-            rowNumber: responseJson.id,
+            id: responseJson.id,
             dateApplying: responseJson.applicationDate,
             nameOfCompany: responseJson.companyName,
             jobTitle: responseJson.jobTitle,

@@ -18,7 +18,7 @@ export const ReturnApplication: React.FC<{application: ApplicationModel}> = (pro
                     />
                 <h6 className="mt-2">{props.application.jobTitle}</h6>
                 <p>{props.application.nameOfCompany}</p>
-                <Link className="btn main-color text-white" to={`/checkout/${props.application?.rowNumber}`}>
+                <Link className="btn main-color text-white" to={`/checkout/${props.application?.id}`}>
                     Update
                 </Link>
             </div>

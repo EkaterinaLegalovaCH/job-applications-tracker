@@ -1,5 +1,5 @@
 class ApplicationModel {
-    rowNumber: number;
+    id: number;
     dateApplying: string;
     nameOfCompany: string;
     jobTitle: string;
@@ -9,7 +9,7 @@ class ApplicationModel {
     applicationStatus: string;   
 
     constructor(
-        rowNumber: number,
+        id: number,
         dateApplying: string,
         nameOfCompany: string,
         jobTitle: string,
@@ -19,7 +19,7 @@ class ApplicationModel {
         applicationStatus: string,
         
     ) {
-        this.rowNumber = rowNumber;
+        this.id = id;
         this.dateApplying = dateApplying;
         this.nameOfCompany = nameOfCompany;
         this.jobTitle = jobTitle;
@@ -29,5 +29,17 @@ class ApplicationModel {
         this.applicationStatus = applicationStatus;
     
     }
+    static fromJson(json: any): ApplicationModel {
+        return new ApplicationModel(
+          json.id,
+          json.applicationDate,
+          json.companyName,
+          json.jobTitle,
+          json.applicationUrl,
+          json.responseDate,
+          json.source,
+          json.status
+        );
+      }
 }
 export default ApplicationModel;

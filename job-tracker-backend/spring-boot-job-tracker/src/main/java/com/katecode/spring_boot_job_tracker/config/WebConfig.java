@@ -1,5 +1,6 @@
 package com.katecode.spring_boot_job_tracker.config;
 
+import com.katecode.spring_boot_job_tracker.entity.Application;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -12,12 +13,12 @@ import java.awt.print.Book;
 
 @Configuration
 public class WebConfig implements RepositoryRestConfigurer {
-    private String theAllowedOrigins = "http://localhost:3000";
+    private final String theAllowedOrigins = "http://localhost:3000";
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,
                                                      CorsRegistry cors) {
-        config.exposeIdsFor(Book.class);
+        config.exposeIdsFor(Application.class);
 
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(theAllowedOrigins);

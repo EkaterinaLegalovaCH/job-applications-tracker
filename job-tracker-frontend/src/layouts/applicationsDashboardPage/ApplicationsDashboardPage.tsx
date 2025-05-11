@@ -31,7 +31,7 @@ export const ApplicationsDashboardPage = () => {
           const LoadedApplications: ApplicationModel[] = [];
           for (const key in responseData) {
             LoadedApplications.push({
-              rowNumber: responseData[key].id,
+              id: responseData[key].id,
               dateApplying: responseData[key].applicationDate,
               nameOfCompany: responseData[key].companyName,
               jobTitle: responseData[key].jobTitle,
@@ -71,7 +71,7 @@ export const ApplicationsDashboardPage = () => {
     return (
         <div>
             <Dashboard applications={applications} deleteApplication={(id: number) => {
-                setApplications(applications.filter(app => app.rowNumber !== id));
+                setApplications(applications.filter(app => app.id !== id));
             }} />
             <button className="btn btn-primary" onClick={() => setShowAddApplForm(true)}>
             New Application

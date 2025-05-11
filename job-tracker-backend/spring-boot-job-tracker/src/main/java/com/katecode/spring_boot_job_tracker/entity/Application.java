@@ -3,6 +3,7 @@ package com.katecode.spring_boot_job_tracker.entity;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "application")
@@ -39,4 +40,9 @@ public class Application {
     private String notes;
 
     private String img;
+
+    @JsonProperty("id")
+    public Long getId() {
+        return id;
+    }
 }
