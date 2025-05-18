@@ -1,6 +1,7 @@
 package com.katecode.spring_boot_job_tracker.config;
 
 import com.katecode.spring_boot_job_tracker.entity.Application;
+import com.katecode.spring_boot_job_tracker.entity.Interview;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -19,6 +20,7 @@ public class WebConfig implements RepositoryRestConfigurer {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,
                                                      CorsRegistry cors) {
         config.exposeIdsFor(Application.class);
+        config.exposeIdsFor(Interview.class);
 
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(theAllowedOrigins);
