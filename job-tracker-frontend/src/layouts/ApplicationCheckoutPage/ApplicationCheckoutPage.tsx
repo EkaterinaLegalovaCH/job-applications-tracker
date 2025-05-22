@@ -1,13 +1,19 @@
 import ApplicationModel from "../../models/ApplicationModel";
+import InterviewModel from "../../models/InterviewModel";
 import { useEffect, useState } from "react";
 import { SpinnerLoading } from "../utils/SpinnerLoading";
 import { ReturnApplication } from "../homepage/components/ReturnApplication";
+
 
 
 export const ApplicationCheckoutPage = () => {
     const [application, setApplication] = useState<ApplicationModel>();
     const [isLoadingApplication, setIsLoadingApplication] = useState(true);
     const [httpError, setHttpError] = useState(null);
+
+    // Interview state
+    const [interviews, setInterviews] = useState<InterviewModel[]>([]);
+    const [isLoadingInterviews, setIsLoadingInterviews] = useState(true);
 
     const applicationId = (window.location.pathname).split("/")[2];
     
@@ -49,7 +55,46 @@ export const ApplicationCheckoutPage = () => {
     
       }, []);
 
-        if (isLoadingApplication) {
+      useEffect(() => {
+        const fetchInterviews = async () => {
+          const interviewUrl: string = `http://localhost:8080/api/interviews/search/findByApplicationId?applicationId=${applicationId}`;
+
+          const responseInterviews = await fetch(interviewUrl);
+
+          if (!responseInterviews.ok) {
+            throw new Error("Something went wrong!");
+          }
+
+          const responseInterviewsJson = await responseInterviews.json();
+
+          const responseData = responseInterviewsJson._embedded.interviews;
+
+          const loadedInterviews: InterviewModel[] = [];
+
+          for (const key in responseData) {
+            loadedInterviews.push({
+              id: responseData[key].id,
+              userEmail: responseData[key].userEmail,
+              date: responseData[key].date,
+              type: responseData[key].type,
+              tasks: responseData[key].tasks,
+              performanceRating: responseData[key].performanceRating,
+              applicationId: responseData[key].applicationId,
+              feedback: responseData[key].feedback
+            })
+          }
+          setInterviews(loadedInterviews);
+          setIsLoadingInterviews(false);
+        };
+
+        fetchInterviews().catch((error: any) => {
+          setIsLoadingInterviews(false);
+          setHttpError(error.message);
+        });
+
+      }, [])
+
+        if (isLoadingApplication || isLoadingInterviews) {
           return (
             <div className="container mt-5">
               <SpinnerLoading />
