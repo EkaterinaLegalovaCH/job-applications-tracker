@@ -3,6 +3,7 @@ import InterviewModel from "../../models/InterviewModel";
 import { useEffect, useState } from "react";
 import { SpinnerLoading } from "../utils/SpinnerLoading";
 import { ReturnApplication } from "../homepage/components/ReturnApplication";
+import { LatestInterviews } from "./LatestInterviews";
 
 
 
@@ -182,6 +183,11 @@ export const ApplicationCheckoutPage = () => {
                   </div>
                 </div>
               </div>
+              <LatestInterviews
+                interviews={interviews}
+                applicationId={application?.id}
+                mobile={false}
+              />
             </div>
           );
 }
