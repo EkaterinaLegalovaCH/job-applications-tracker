@@ -1,0 +1,78 @@
+.application-checkout {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.company-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 12px;
+    background-color: #302d2d;
+}
+
+.company-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.company-info h2 {
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+    color: var(--primary-text-color);
+}
+
+.company-info h5 {
+    font-size: 1.125rem;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.5rem;
+}
+
+.company-info a {
+    font-weight: 500;
+}
+
+.application-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.form-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    flex: 1 1 calc(50% - 1rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: #333;
+}
+
+.form-control {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+

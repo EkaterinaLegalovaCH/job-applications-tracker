@@ -3,7 +3,8 @@ import InterviewModel from "../../models/InterviewModel";
 import { useEffect, useState } from "react";
 import { SpinnerLoading } from "../utils/SpinnerLoading";
 import { ReturnApplication } from "../homepage/components/ReturnApplication";
-import { LatestInterviews } from "./LatestInterviews";
+import { LatestInterviews } from "./components/LatestInterviews";
+import "./ApplicationCheckoutPage.css";
 
 
 
@@ -97,7 +98,7 @@ export const ApplicationCheckoutPage = () => {
 
         if (isLoadingApplication || isLoadingInterviews) {
           return (
-            <div className="container mt-5">
+            <div className="application-checkout">
               <SpinnerLoading />
             </div>
           )
@@ -105,7 +106,7 @@ export const ApplicationCheckoutPage = () => {
       
         if (httpError) {
           return (
-            <div className="container mt-5">
+            <div className="application-checkout">
               <p>Hi there!{httpError}</p>
             </div>
           )
@@ -117,32 +118,30 @@ export const ApplicationCheckoutPage = () => {
             console.log("🛠️ Generated logo URL:", logoUrl);
           }
           return (
-            <div className="container mt-5">
-              <div className="row mb-4">
-                <div className="col-md-2 text-center">
+            <div className="application-checkout">
+              <div className="company-header">
                   <img
                     src={`https://logo.clearbit.com/${application?.nameOfCompany?.toLowerCase().replace(/\s+/g, '')}.com`}
                     alt={`${application?.nameOfCompany ?? ""} logo`}
                     width="120"
                     height="120"
-                    className="img-fluid rounded"
+                    className="company-logo"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src = "/default-logo.png";
                     }}
                   />
-                </div>
-                <div className="col-md-10 d-flex flex-column justify-content-center">
-                  <h2>{application?.nameOfCompany}</h2>
-                  <h5 className="text-primary">{application?.jobTitle}</h5>
-                  <a href={application?.jobUrl} target="_blank" rel="noopener noreferrer">
-                    View Job Posting
-                  </a>
-                </div>
+                  <div className="company-info">
+                    <h2>{application?.nameOfCompany}</h2>
+                    <h5>{application?.jobTitle}</h5>
+                    <a href={application?.jobUrl} target="_blank" rel="noopener noreferrer">
+                      View Job Posting
+                    </a>
+                  </div>
               </div>
           
-              <div className="card p-4 shadow-sm">
-                <div className="row mb-3">
-                  <div className="col-md-6">
+              <div className="application-card">
+                <div className="form-section">
+                  <div className="form-group">
                     <label className="form-label">Application Date</label>
                     <input
                       className="form-control"
@@ -151,7 +150,7 @@ export const ApplicationCheckoutPage = () => {
                       readOnly
                     />
                   </div>
-                  <div className="col-md-6">
+                  <div className="form-group">
                     <label className="form-label">Response Date</label>
                     <input
                       className="form-control"
@@ -162,8 +161,8 @@ export const ApplicationCheckoutPage = () => {
                   </div>
                 </div>
           
-                <div className="row mb-3">
-                  <div className="col-md-6">
+                <div className="form-section">
+                  <div className="form-group">
                     <label className="form-label">Source</label>
                     <input
                       className="form-control"
@@ -172,7 +171,7 @@ export const ApplicationCheckoutPage = () => {
                       readOnly
                     />
                   </div>
-                  <div className="col-md-6">
+                  <div className="form-group">
                     <label className="form-label">Status</label>
                     <input
                       className="form-control"

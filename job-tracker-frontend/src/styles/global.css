@@ -9,6 +9,18 @@
 body {
     font-family: var(--font-base);
     font-size: var(--font-size-base);
-    color: var(--primary-text-color);
-    background-color: #fff;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: var(--secondary-text-color);
+}
+
+a:hover {
+    color: var(--accent-color);
+}
+
+ul {
+    list-style: none;
 }

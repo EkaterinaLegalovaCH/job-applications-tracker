@@ -1,0 +1,44 @@
+.latest-interviews {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background-color: #fefefe;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+}
+
+.latest-interviews__heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.latest-interviews__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.latest-interviews__footer {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.latest-interviews__view-all {
+  color: var(--accent-color);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.latest-interviews__view-all:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.latest-interviews__none {
+  font-size: 1rem;
+  color: #777;
+}
