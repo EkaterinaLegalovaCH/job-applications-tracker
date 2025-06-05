@@ -1,0 +1,14 @@
+.hero {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.title {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.subtitle {
+  color: #555;
+  font-size: 1.125rem;
+}

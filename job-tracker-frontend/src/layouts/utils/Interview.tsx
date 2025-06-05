@@ -1,4 +1,8 @@
+import React from "react";
 import IntervieModel from "../../models/InterviewModel";
+import styles from "./Interview.module.css";
+
+
 
 export const Interview: React.FC<{ interview: IntervieModel}> = (props) => {
     const date = new Date(props.interview.date);
@@ -10,22 +14,19 @@ export const Interview: React.FC<{ interview: IntervieModel}> = (props) => {
     const dateRender = longMonth + " " + dateDay + ", " + dateYear;
 
     return (
-        <div>
-            <div className="col-sm-8 col-md-8">
-                <h5>Email:{props.interview.userEmail}</h5>
-                <div className="row">
-                    <div className="col">
-                        {dateRender}
-                    </div>
-                    <div className="col">
-                        {props.interview.feedback}
-                    </div>
-                </div>
-                <div className="mt-2">
-                    <p>{props.interview.type}</p>
-                </div>
+        <div className={styles.card}>
+            <div className={styles.headder}>
+                <span className={styles.type}>{props.interview.type}</span>
+                <span className={styles.date}>{dateRender}</span>
             </div>
-            <hr/>
+            <div className={styles.body}>
+                <p>{props.interview.feedback || "No feedback was provided"}</p>
+            </div>
+            { props.interview.performanceRating && (
+                <div className={styles.rating}>
+                    Performance: {props.interview.performanceRating}/10
+                </div>
+            )}
         </div>
     );
 }

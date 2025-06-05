@@ -23,7 +23,6 @@ export const LatestInterviews: React.FC<{
                                 />
                             ))}
                         </div>
-  
 
                         <div className="latest-intervies_footer">
                             <Link className="latest-interviews_view-all" to='#'>

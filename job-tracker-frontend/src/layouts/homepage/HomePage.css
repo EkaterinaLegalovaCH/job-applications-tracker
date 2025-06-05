@@ -1,0 +1,31 @@
+
+.homepage {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.homepage__section {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Optional styling overrides for each section */
+.homepage__recent-apps {
+  background-color: var(--secondary-color);
+}
+
+.homepage__carousel {
+  padding: 0;
+  box-shadow: none;
+}
+
+.homepage__heros,
+.homepage__services {
+  background-color: #f9f9f9;
+}

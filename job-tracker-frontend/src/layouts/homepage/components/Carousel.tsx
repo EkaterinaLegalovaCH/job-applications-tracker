@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ApplicationModel from "../../../models/ApplicationModel";
 import { SpinnerLoading } from "../../utils/SpinnerLoading";
 import { Link } from "react-router-dom";
+import styles from "./Carousel.module.css";
 
 export const Carousel = () => {
   const [applications, setApplications] = useState<ApplicationModel[]>([]);
@@ -56,7 +57,7 @@ export const Carousel = () => {
 
   if (isLoading) {
     return (
-      <div className="container mt-5">
+      <div className={styles.carouselContainer}>
         <SpinnerLoading />
       </div>
     );
@@ -64,96 +65,31 @@ export const Carousel = () => {
 
   if (httpError) {
     return (
-      <div className="container mt-5">
+      <div className={styles.carouselContainer}>
         <p>Hi there!{httpError}</p>
       </div>
     );
   }
 
   return (
-    <div className="container mt-5" style={{ height: 550 }}>
-      <div className="homepage-carousel-title">
-        <h3>Check your last Applications status</h3>
-      </div>
-      <div
-        id="carouselExampleControls"
-        className="carousel carousel-dark slide mt-5 d-none d-lg-block"
-        data-bs-intevalr="false"
-      >
-        {/* Desktop */}
-        <div className="carousel-inner">
-          <div className="carousel-item active">
-            <div className="row d-flex justify-content-center align-items-center">
+    <div className={styles.carouselContainer}>
+        <h3 className={styles.title}>Check your last Applications status</h3>
+        <div className={styles.applicationsRow}>
               {applications.map((application) => (
-                <ReturnApplication
-                  key={application.id}
-                  application={application}
-                />
+                <div className={styles.applicationCard} key={application.id}>
+                  <ReturnApplication
+                    application={application}
+                  />
+                </div>
               ))}
-            </div>
-          </div>
-          <div className="carousel-item active">
-            <div className="row d-flex justify-content-center align-items-center">
-              {applications.map((application) => (
-                <ReturnApplication
-                  key={application.id}
-                  application={application}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="carousel-item active">
-            <div className="row d-flex justify-content-center align-items-center">
-              {applications.map((application) => (
-                <ReturnApplication
-                  key={application.id}
-                  application={application}
-                />
-              ))}
-            </div>
-          </div>
         </div>
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="prev"
-        >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
-        </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExampleControls"
-          data-bs-slide="next"
-        >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Next</span>
-        </button>
-      </div>
-      {/* Mobile */}
-      <div className="d-lg-none mt-3">
-        <div className="row d-flex justify-content-center align-items-center">
-          {applications.map((application) => (
-            <ReturnApplication
-              key={application.id}
-              application={application}
-            />
-          ))}
+
+        <div className={styles.footer}>
+              <Link className={styles.viewMoreButton} to="/applications">
+                View More.
+              </Link>
         </div>
-      </div>
-      <div className="homepage-carousel-title mt-3">
-        <Link className="btn btn-outline-secondary btn-lg" to="/applications">
-          View More
-        </Link>
-      </div>
-    </div>
+    </div>    
+          
   );
 };

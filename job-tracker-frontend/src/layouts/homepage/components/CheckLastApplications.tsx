@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const CheckLastApplications = () => {
     return (
-        <div className="p-5 mb-4 bg-dark header">
+        <div className="p-5 mb-4 bg-dark">
             <div className="container-fluid py-5 text-white d-flex justify-content-center align-items-center">
                 <div>
                     <h1 className="display-5 fw-bold">Apdate status of your last applications!</h1>
