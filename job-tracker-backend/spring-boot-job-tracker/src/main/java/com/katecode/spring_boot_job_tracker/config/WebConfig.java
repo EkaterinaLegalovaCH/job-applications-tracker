@@ -23,6 +23,9 @@ public class WebConfig implements RepositoryRestConfigurer {
         config.exposeIdsFor(Interview.class);
 
         cors.addMapping(config.getBasePath() + "/**")
-                .allowedOrigins(theAllowedOrigins);
+                .allowedOrigins(theAllowedOrigins)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }

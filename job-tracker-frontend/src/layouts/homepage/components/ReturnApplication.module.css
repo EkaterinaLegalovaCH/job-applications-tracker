@@ -1,11 +1,15 @@
 
 .card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
   padding: 1.5rem;
   border-radius: var(--border-radius);
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s ease;
+  height: 100%;
 }
 
 .card:hover {
@@ -17,7 +21,7 @@
   height: 100px;
   object-fit: contain;
   border-radius: 12px;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem;
 }
 
 .title {

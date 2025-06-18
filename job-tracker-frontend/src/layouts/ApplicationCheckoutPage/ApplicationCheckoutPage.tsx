@@ -2,7 +2,6 @@ import ApplicationModel from "../../models/ApplicationModel";
 import InterviewModel from "../../models/InterviewModel";
 import { useEffect, useState } from "react";
 import { SpinnerLoading } from "../utils/SpinnerLoading";
-import { ReturnApplication } from "../homepage/components/ReturnApplication";
 import { LatestInterviews } from "./components/LatestInterviews";
 import "./ApplicationCheckoutPage.css";
 
@@ -19,6 +18,12 @@ export const ApplicationCheckoutPage = () => {
 
     const applicationId = (window.location.pathname).split("/")[2];
     
+    const [nameOfCompany, setNameOfCompany] = useState("");
+    const [jobTitle, setJobTitle] = useState("");
+    const [jobUrl, setJobUrl] = useState("");
+    const [dateResponse, setDateResponse] = useState("");
+    const [jobAddResourse, setJobAddResourse] = useState("");
+    const [applicationStatus, setApplicationStatus] = useState("");
     
 
     useEffect(() => {
@@ -47,6 +52,12 @@ export const ApplicationCheckoutPage = () => {
           };
 
           setApplication(LoadedApplication);
+          setNameOfCompany(LoadedApplication.nameOfCompany);
+          setJobTitle(LoadedApplication.jobTitle);
+          setJobUrl(LoadedApplication.jobUrl);
+          setDateResponse(LoadedApplication.dateResponse);
+          setJobAddResourse(LoadedApplication.jobAddResourse);
+          setApplicationStatus(LoadedApplication.applicationStatus);
           setIsLoadingApplication(false);
         };
     
@@ -95,98 +106,138 @@ export const ApplicationCheckoutPage = () => {
         });
 
       }, [])
+      const updateApplication = async () => {
+    const payload = {
+      id: application?.id,
+      companyName: nameOfCompany,
+      jobTitle: jobTitle,
+      applicationUrl: jobUrl,
+      responseDate: dateResponse,
+      source: jobAddResourse,
+      status: applicationStatus,
+      applicationDate: application?.dateApplying
+    };
 
-        if (isLoadingApplication || isLoadingInterviews) {
-          return (
-            <div className="application-checkout">
-              <SpinnerLoading />
-            </div>
-          )
-        }
-      
-        if (httpError) {
-          return (
-            <div className="application-checkout">
-              <p>Hi there!{httpError}</p>
-            </div>
-          )
-        
-        }
-        if (application) {
-            const sanitizedName = application.nameOfCompany.toLowerCase().replace(/\s+/g, '');
-            const logoUrl = `https://logo.clearbit.com/${sanitizedName}.com`;
-            console.log("🛠️ Generated logo URL:", logoUrl);
-          }
-          return (
-            <div className="application-checkout">
-              <div className="company-header">
-                  <img
-                    src={`https://logo.clearbit.com/${application?.nameOfCompany?.toLowerCase().replace(/\s+/g, '')}.com`}
-                    alt={`${application?.nameOfCompany ?? ""} logo`}
-                    width="120"
-                    height="120"
-                    className="company-logo"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/default-logo.png";
-                    }}
-                  />
-                  <div className="company-info">
-                    <h2>{application?.nameOfCompany}</h2>
-                    <h5>{application?.jobTitle}</h5>
-                    <a href={application?.jobUrl} target="_blank" rel="noopener noreferrer">
-                      View Job Posting
-                    </a>
-                  </div>
-              </div>
-          
-              <div className="application-card">
-                <div className="form-section">
-                  <div className="form-group">
-                    <label className="form-label">Application Date</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={application?.dateApplying || ""}
-                      readOnly
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Response Date</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={application?.dateResponse || "—"}
-                      readOnly
-                    />
-                  </div>
-                </div>
-          
-                <div className="form-section">
-                  <div className="form-group">
-                    <label className="form-label">Source</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={application?.jobAddResourse || ""}
-                      readOnly
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Status</label>
-                    <input
-                      className="form-control"
-                      type="text"
-                      value={application?.applicationStatus || ""}
-                      readOnly
-                    />
-                  </div>
-                </div>
-              </div>
-              <LatestInterviews
-                interviews={interviews}
-                applicationId={application?.id}
-                mobile={false}
-              />
-            </div>
-          );
-}
+    try {
+      const response = await fetch(`http://localhost:8080/api/applications/${application?.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+      console.log("PUT status:", response.status, await response.text());
+      if (!response.ok) throw new Error("Failed to update application");
+
+      alert("Application updated successfully!");
+    } catch (error) {
+      console.error("Update error:", error);
+      alert("Update failed.");
+    }
+  };
+
+  if (isLoadingApplication || isLoadingInterviews) {
+    return <SpinnerLoading />;
+  }
+
+  if (httpError) {
+    return <div>Error: {httpError}</div>;
+  }
+
+  return (
+    <div className="application-checkout">
+      <div className="company-header">
+        <img
+          src={`https://logo.clearbit.com/${nameOfCompany?.toLowerCase().replace(/\s+/g, "")}.com`}
+          alt={`${nameOfCompany} logo`}
+          className="company-logo"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = "/default-logo.png";
+          }}
+        />
+        <div className="company-info">
+          <h2>{nameOfCompany}</h2>
+          <h5>{jobTitle}</h5>
+          <a href={jobUrl} target="_blank" rel="noopener noreferrer">
+            View Job Posting
+          </a>
+        </div>
+      </div>
+
+      <div className="application-card">
+        <div className="form-section">
+          <div className="form-group">
+            <label>Company Name</label>
+            <input
+              className="form-control"
+              type="text"
+              value={nameOfCompany}
+              onChange={(e) => setNameOfCompany(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Job Title</label>
+            <input
+              className="form-control"
+              type="text"
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Application URL</label>
+            <input
+              className="form-control"
+              type="text"
+              value={jobUrl}
+              onChange={(e) => setJobUrl(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Response Date</label>
+            <input
+              className="form-control"
+              type="date"
+              value={dateResponse}
+              onChange={(e) => setDateResponse(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Source</label>
+            <input
+              className="form-control"
+              type="text"
+              value={jobAddResourse}
+              onChange={(e) => setJobAddResourse(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Status</label>
+            <select
+              className="form-control"
+              value={applicationStatus}
+              onChange={(e) => setApplicationStatus(e.target.value)}
+            >
+              <option value="">Select status</option>
+              <option value="Sent">Sent</option>
+              <option value="Interviewing">Interviewing</option>
+              <option value="Offered">Offered</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <button className="btn btn-primary mt-3" onClick={updateApplication}>
+          Save Changes
+        </button>
+      </div>
+
+      <LatestInterviews
+        interviews={interviews}
+        applicationId={application?.id}
+        mobile={false}
+      />
+    </div>
+  );
+};
