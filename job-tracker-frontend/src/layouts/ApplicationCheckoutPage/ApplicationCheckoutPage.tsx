@@ -107,32 +107,32 @@ export const ApplicationCheckoutPage = () => {
 
       }, [])
       const updateApplication = async () => {
-    const payload = {
-      id: application?.id,
-      companyName: nameOfCompany,
-      jobTitle: jobTitle,
-      applicationUrl: jobUrl,
-      responseDate: dateResponse,
-      source: jobAddResourse,
-      status: applicationStatus,
-      applicationDate: application?.dateApplying
-    };
+        const payload = {
+          id: application?.id,
+          companyName: nameOfCompany,
+          jobTitle: jobTitle,
+          applicationUrl: jobUrl,
+          responseDate: dateResponse,
+          source: jobAddResourse,
+          status: applicationStatus,
+          applicationDate: application?.dateApplying
+        };
 
-    try {
-      const response = await fetch(`http://localhost:8080/api/applications/${application?.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      });
+        try {
+          const response = await fetch(`http://localhost:8080/api/applications/${application?.id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
       console.log("PUT status:", response.status, await response.text());
       if (!response.ok) throw new Error("Failed to update application");
 
-      alert("Application updated successfully!");
+      
     } catch (error) {
       console.error("Update error:", error);
-      alert("Update failed.");
+      
     }
   };
 

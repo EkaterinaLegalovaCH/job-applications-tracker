@@ -7,10 +7,12 @@ import { ApplicationsDashboardPage } from "./layouts/applicationsDashboardPage/A
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ApplicationCheckoutPage } from "./layouts/ApplicationCheckoutPage/ApplicationCheckoutPage";
 
+
 export const App = () => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <Navbar />
+
       <div className="flex-grow-1">
         <Switch>
           <Route path="/" exact>
@@ -28,6 +30,9 @@ export const App = () => {
           <Route path="/checkout/:applicationId">
             <ApplicationCheckoutPage />
           </Route>
+
+          
+          
         </Switch>
       </div>
       <Footer />

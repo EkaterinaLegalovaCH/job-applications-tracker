@@ -1,7 +1,9 @@
 {
   "dependencies": {
     "@tanstack/react-query": "^5.71.10",
-    "axios": "^1.8.4"
+    "axios": "^1.8.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@types/axios": "^0.9.36"
