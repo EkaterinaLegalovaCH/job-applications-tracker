@@ -1,0 +1,61 @@
+.application_row {
+  background-color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.application_row:hover {
+  background-color: #f9fafb;
+}
+
+.application_row td,
+.application_row th {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #444;
+  border-bottom: 1px solid #eee;
+}
+
+.application_row td a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+.application_row td a:hover {
+  text-decoration: underline;
+}
+
+.application_row th[scope="row"] {
+  text-align: center;
+  vertical-align: middle;
+  width: 50px; /* Optional: give it a consistent width */
+}
+
+/* Responsive behavior (if you want mobile support) */
+@media (max-width: 768px) {
+  .application_row {
+    display: block;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+  }
+
+  .application_row td,
+  .application_row th {
+    display: block;
+    text-align: right;
+    position: relative;
+    padding-left: 50%;
+    border: none;
+  }
+
+  .application_row td::before,
+  .application_row th::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 16px;
+    font-weight: bold;
+    text-align: left;
+    color: #666;
+  }
+}

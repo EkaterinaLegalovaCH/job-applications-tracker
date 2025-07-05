@@ -1,11 +1,13 @@
 import ApplicationModel from '../../../models/ApplicationModel';
 import { ApplicationRow } from './ApplicationRow';
+import "./ApplicationsTable.css";
 
 
 export const ApplicationsTable: React.FC<{applications: ApplicationModel[], deleteApplication: Function}> = (props) => {
     
     return (
-        <table className="table table-hover">
+        <div className="table_container">
+        <table className="applications_table">
             <thead>
               <tr>
                 <th scope='col'>#</th>
@@ -28,6 +30,7 @@ export const ApplicationsTable: React.FC<{applications: ApplicationModel[], dele
                 
             </tbody>
         </table>
+        </div>
     )
 }
 
