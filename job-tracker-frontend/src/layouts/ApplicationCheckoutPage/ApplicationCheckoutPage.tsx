@@ -1,6 +1,7 @@
 import ApplicationModel from "../../models/ApplicationModel";
 import InterviewModel from "../../models/InterviewModel";
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { SpinnerLoading } from "../utils/SpinnerLoading";
 import { LatestInterviews } from "./components/LatestInterviews";
 import "./ApplicationCheckoutPage.css";
@@ -106,6 +107,7 @@ export const ApplicationCheckoutPage = () => {
         });
 
       }, [])
+
       const updateApplication = async () => {
         const payload = {
           id: application?.id,
@@ -135,6 +137,23 @@ export const ApplicationCheckoutPage = () => {
       
     }
   };
+      const deleteApplication = async () => {
+        
+        const confirmDeletion = window.confirm("Are you sure you want to delete this application?");
+        if (!confirmDeletion) return;
+        
+        try {
+          const response = await fetch(`http://localhost:8080/api/applications/${application?.id}`, {
+            method: "DELETE"});
+          if (!response.ok) throw new Error("Failed to delete application");  
+           window.location.href = "http://localhost:3000/applications";
+          
+        } catch (error) {
+          console.error("Delete error:", error);
+          alert("Something went wrong while deleting the application.");
+        }
+        
+      };
 
   if (isLoadingApplication || isLoadingInterviews) {
     return <SpinnerLoading />;
@@ -227,10 +246,16 @@ export const ApplicationCheckoutPage = () => {
             </select>
           </div>
         </div>
+        <div className="button-group">
+          <button className="btn-custom btn-update" onClick={updateApplication}>
+            Save Changes
+          </button>
 
-        <button className="btn btn-primary mt-3" onClick={updateApplication}>
-          Save Changes
-        </button>
+          <button className="btn-custom btn-delete" onClick={deleteApplication}>
+            Delete Application
+          </button>
+        </div>
+
       </div>
 
       <LatestInterviews
