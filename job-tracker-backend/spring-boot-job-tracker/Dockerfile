@@ -1,14 +1,22 @@
-# Use OpenJDK base image compatible with Java 17
-FROM eclipse-temurin:17-jdk
+# Build stage
+FROM eclipse-temurin:17-jdk AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy the built jar from the target directory
-COPY target/spring-boot-job-tracker-0.0.1-SNAPSHOT.jar app.jar
+# Copy everything
+COPY . .
 
-# Expose the app port
+# Build the application using Maven Wrapper
+RUN ./mvnw clean package -DskipTests
+
+# Run stage
+FROM eclipse-temurin:17-jdk
+
+WORKDIR /app
+
+# Copy the built JAR from the builder stage
+COPY --from=builder /app/target/spring-boot-job-tracker-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
 
-# Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
