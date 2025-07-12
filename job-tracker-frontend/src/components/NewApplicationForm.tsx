@@ -31,7 +31,7 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
       };
 
       try {
-        await axios.post("http://localhost:8080/applications", payload, {
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/applications`, payload, {
           headers: {
             "Content-type": "application/json",        
           },

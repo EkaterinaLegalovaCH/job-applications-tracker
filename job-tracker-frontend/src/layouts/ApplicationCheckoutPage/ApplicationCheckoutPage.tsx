@@ -30,7 +30,7 @@ export const ApplicationCheckoutPage = () => {
     useEffect(() => {
         const fetchApplication = async () => {
     
-          const baseUrl: string = `http://localhost:8080/api/applications/${applicationId}`;
+          const baseUrl: string = `${process.env.REACT_APP_API_BASE_URL}/applications/${applicationId}`;
     
           const response = await fetch(baseUrl);
     
@@ -71,7 +71,7 @@ export const ApplicationCheckoutPage = () => {
 
       useEffect(() => {
         const fetchInterviews = async () => {
-          const interviewUrl: string = `http://localhost:8080/api/interviews/search/findByApplicationId?applicationId=${applicationId}`;
+          const interviewUrl: string = `${process.env.REACT_APP_API_BASE_URL}/interviews/search/findByApplicationId?applicationId=${applicationId}`;
 
           const responseInterviews = await fetch(interviewUrl);
 
@@ -121,7 +121,7 @@ export const ApplicationCheckoutPage = () => {
         };
 
         try {
-          const response = await fetch(`http://localhost:8080/api/applications/${application?.id}`, {
+          const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/applications/${application?.id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json"
@@ -143,7 +143,7 @@ export const ApplicationCheckoutPage = () => {
         if (!confirmDeletion) return;
         
         try {
-          const response = await fetch(`http://localhost:8080/api/applications/${application?.id}`, {
+          const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/applications/${application?.id}`, {
             method: "DELETE"});
           if (!response.ok) throw new Error("Failed to delete application");  
            window.location.href = "http://localhost:3000/applications";
