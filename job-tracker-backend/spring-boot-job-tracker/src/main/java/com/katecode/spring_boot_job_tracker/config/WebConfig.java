@@ -14,7 +14,10 @@ import java.awt.print.Book;
 
 @Configuration
 public class WebConfig implements RepositoryRestConfigurer {
-    private final String theAllowedOrigins = "http://localhost:3000";
+    private final String[] theAllowedOrigins = {
+            "http://localhost:3000",
+            "https://job-applications-tracker-eosin.vercel.app"
+    };
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,

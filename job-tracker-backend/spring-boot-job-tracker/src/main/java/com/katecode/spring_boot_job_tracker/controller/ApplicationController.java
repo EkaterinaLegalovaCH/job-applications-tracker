@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/applications")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {
+        "http://localhost:3000",
+        "https://job-applications-tracker-eosin.vercel.app"
+})
 public class ApplicationController {
 
     @Autowired
