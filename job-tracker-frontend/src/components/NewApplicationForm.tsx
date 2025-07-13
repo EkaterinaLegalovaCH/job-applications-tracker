@@ -45,7 +45,7 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
         setDateResponse("");
         setJobAddResourse("");
         setApplicationStatus("");
-        window.location.href = "http://localhost:3000/applications";
+        window.location.href = `${process.env.REACT_APP_API_BASE_URL}/applications`;
         setShow(false); // Close modal after submitting
       } catch (error) {
         console.error("Error submiting application:", error);
