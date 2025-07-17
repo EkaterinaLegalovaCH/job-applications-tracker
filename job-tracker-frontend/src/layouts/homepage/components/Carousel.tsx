@@ -35,13 +35,13 @@ export const Carousel = () => {
         LoadedApplications.push(
           new ApplicationModel(
             app.id,
-            app.applicationDate,
-            app.companyName,
+            app.dateApplying,
+            app.nameOfCompany,
             app.jobTitle,
-            app.applicationUrl,
-            app.responseDate,
-            app.source,
-            app.status
+            app.jobnUrl,
+            app.dateResponse,
+            app.jobAddResourse,
+            app.applicationStatus
           )
         );
       }

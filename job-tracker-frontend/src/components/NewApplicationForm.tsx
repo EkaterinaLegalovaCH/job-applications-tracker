@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
+import ApplicationModel from "../models/ApplicationModel";
 
 interface NewApplicationFormProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  onApplicationAdded: (app: ApplicationModel) => void;
 }
 
 
-export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, }) => {
+export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, setShow, onApplicationAdded }) => {
   const [nameOfCompany, setNameOfCompany] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [jobUrl, setJobUrl] = useState("");
@@ -18,24 +20,44 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
   const submitApplication = async () => {
     if (nameOfCompany && jobTitle && jobUrl && dateResponse && jobAddResourse && applicationStatus) {
       const payload = {
-        companyName: nameOfCompany,
+        nameOfCompany: nameOfCompany,
         jobTitle: jobTitle,
-        applicationUrl: jobUrl,
-        responseDate: dateResponse,
-        source: jobAddResourse,
-        status: applicationStatus,
-        applicationDate: new Date().toISOString().split("T")[0],
+        jobUrl: jobUrl,
+        dateResponse: dateResponse,
+        jobAddResourse: jobAddResourse,
+        applicationStatus: applicationStatus,
+        dateApplying: new Date().toISOString().split("T")[0],
         nextStep: "",
         notes: "",
         img: ""
       };
 
       try {
-        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/applications`, payload, {
+        const response = await axios.post<ApplicationModel>(`${process.env.REACT_APP_API_BASE_URL}/applications`, payload, {
           headers: {
             "Content-type": "application/json",        
           },
         });
+        
+        const saved = response.data;
+
+        console.log("Response from backend:", saved);
+       
+
+
+
+        const formattedApp = {
+        id: saved.id,
+        dateApplying: saved.dateApplying,
+        nameOfCompany: saved.nameOfCompany,
+        jobTitle: saved.jobTitle,
+        jobUrl: saved.jobUrl,
+        dateResponse: saved.dateResponse,
+        jobAddResourse: saved.jobAddResourse,
+        applicationStatus: saved.applicationStatus,
+      };
+        onApplicationAdded(formattedApp);
+
       
         alert("Application added successfully!");  
 
@@ -45,7 +67,7 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
         setDateResponse("");
         setJobAddResourse("");
         setApplicationStatus("");
-        window.location.href = `${process.env.REACT_APP_API_BASE_URL}/applications`;
+      
         setShow(false); // Close modal after submitting
       } catch (error) {
         console.error("Error submiting application:", error);

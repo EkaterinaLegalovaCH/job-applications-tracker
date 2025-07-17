@@ -27,18 +27,19 @@ class ApplicationModel {
         this.dateResponse = dateResponse;
         this.jobAddResourse = jobAddResourse;
         this.applicationStatus = applicationStatus;
+        
     
     }
     static fromJson(json: any): ApplicationModel {
         return new ApplicationModel(
           json.id,
-          json.applicationDate,
-          json.companyName,
+          json.dateApplying,
+          json.nameOfCompany,
           json.jobTitle,
-          json.applicationUrl,
-          json.responseDate,
-          json.source,
-          json.status
+          json.jobUrl,
+          json.dateResponse,
+          json.jobAddResourse,
+          json.applicationStatus
         );
       }
 }

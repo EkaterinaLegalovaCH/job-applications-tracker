@@ -19,20 +19,20 @@ public class Application {
     private String jobTitle;
 
     @Column(name = "company_name")
-    private String companyName;
+    private String nameOfCompany;
 
     @Column(name = "application_url")
-    private String applicationUrl;
+    private String jobUrl;
 
     @Column(name = "application_date")
-    private LocalDate applicationDate;
+    private LocalDate dateApplying;
 
-    private String source;
+    private String jobAddResourse;
 
     @Column(name = "response_date")
-    private LocalDate responseDate;
+    private LocalDate dateResponse;
 
-    private String status;
+    private String applicationStatus;
 
     @Column(name = "next_step")
     private String nextStep;

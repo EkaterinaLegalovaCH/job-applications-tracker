@@ -42,13 +42,13 @@ export const ApplicationCheckoutPage = () => {
     
           const LoadedApplication: ApplicationModel =  {
             id: responseJson.id,
-            dateApplying: responseJson.applicationDate,
-            nameOfCompany: responseJson.companyName,
+            dateApplying: responseJson.dateApplying,
+            nameOfCompany: responseJson.nameOfCompany,
             jobTitle: responseJson.jobTitle,
-            jobUrl: responseJson.applicationUrl,
-            dateResponse: responseJson.responseDate,
-            jobAddResourse: responseJson.source,
-            applicationStatus: responseJson.status
+            jobUrl: responseJson.jobUrl,
+            dateResponse: responseJson.dateResponse,
+            jobAddResourse: responseJson.jobAddResourse,
+            applicationStatus: responseJson.applicationStatus
 
           };
 
@@ -111,13 +111,13 @@ export const ApplicationCheckoutPage = () => {
       const updateApplication = async () => {
         const payload = {
           id: application?.id,
-          companyName: nameOfCompany,
+          nameOfCompany: nameOfCompany,
           jobTitle: jobTitle,
-          applicationUrl: jobUrl,
-          responseDate: dateResponse,
-          source: jobAddResourse,
-          status: applicationStatus,
-          applicationDate: application?.dateApplying
+          jobUrl: jobUrl,
+          dateResponse: dateResponse,
+          jobAddResourse: jobAddResourse,
+          applicationStatus: applicationStatus,
+          dateApplying: application?.dateApplying
         };
 
         try {

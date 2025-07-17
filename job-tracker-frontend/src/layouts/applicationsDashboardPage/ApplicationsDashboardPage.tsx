@@ -31,13 +31,13 @@ export const ApplicationsDashboardPage = () => {
       for (const key in responseData) {
         LoadedApplications.push({
           id: responseData[key].id,
-          dateApplying: responseData[key].applicationDate,
-          nameOfCompany: responseData[key].companyName,
+          dateApplying: responseData[key].dateApplying,
+          nameOfCompany: responseData[key].nameOfCompany,
           jobTitle: responseData[key].jobTitle,
-          jobUrl: responseData[key].applicationUrl,
-          dateResponse: responseData[key].responseDate,
-          jobAddResourse: responseData[key].source,
-          applicationStatus: responseData[key].status,
+          jobUrl: responseData[key].jobUrl,
+          dateResponse: responseData[key].dateResponse,
+          jobAddResourse: responseData[key].jobAddResourse,
+          applicationStatus: responseData[key].applicationStatus,
         });
       }
       setApplications(LoadedApplications);
@@ -82,7 +82,13 @@ export const ApplicationsDashboardPage = () => {
         }
       />
 
-      <NewApplicationForm show={showAddApplForm} setShow={setShowAddApplForm} />
+      <NewApplicationForm 
+        show={showAddApplForm} 
+        setShow={setShowAddApplForm} 
+        onApplicationAdded={(app: ApplicationModel) =>
+          setApplications((prev) => [...prev, app])
+        }
+      />
     </div>
   );
 };
