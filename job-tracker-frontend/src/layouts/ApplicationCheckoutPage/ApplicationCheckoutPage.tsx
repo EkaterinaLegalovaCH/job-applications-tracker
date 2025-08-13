@@ -119,7 +119,7 @@ export const ApplicationCheckoutPage = () => {
           applicationStatus: applicationStatus,
           dateApplying: application?.dateApplying
         };
-
+        
         try {
           const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/applications/${application?.id}`, {
             method: "PUT",

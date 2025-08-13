@@ -18,7 +18,7 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
   const [applicationStatus, setApplicationStatus] = useState("");
 
   const submitApplication = async () => {
-    if (nameOfCompany && jobTitle && jobUrl && dateResponse && jobAddResourse && applicationStatus) {
+    if (nameOfCompany && jobTitle && jobUrl && jobAddResourse && applicationStatus) {
       const payload = {
         nameOfCompany: nameOfCompany,
         jobTitle: jobTitle,
@@ -105,7 +105,7 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
                   <div className="mb-3">
                     <label className="form-label">Date of Response</label>
                     <input type="date" className="form-control" value={dateResponse} onChange={(e) => setDateResponse(e.target.value)} />
-                  </div>
+                  </div> 
                   <div className="mb-3">
                     <label className="form-label">Job Ad Resource</label>
                     <input type="text" className="form-control" value={jobAddResourse} onChange={(e) => setJobAddResourse(e.target.value)} />
