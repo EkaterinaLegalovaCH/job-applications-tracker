@@ -2,6 +2,7 @@ package com.katecode.spring_boot_job_tracker.config;
 
 import com.katecode.spring_boot_job_tracker.entity.Application;
 import com.katecode.spring_boot_job_tracker.entity.Interview;
+import com.katecode.spring_boot_job_tracker.entity.User;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -18,9 +19,15 @@ public class WebConfig implements RepositoryRestConfigurer {
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,
                                                      CorsRegistry cors) {
-        config.exposeIdsFor(Application.class, Interview.class);
+        config.exposeIdsFor(Application.class, Interview.class, User.class);
 
         cors.addMapping(config.getBasePath() + "/**")
+                .allowedOrigins(theAllowedOrigins)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+
+        cors.addMapping("/api/auth/**")
                 .allowedOrigins(theAllowedOrigins)
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")

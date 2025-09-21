@@ -6,6 +6,8 @@ import { Footer } from "./components/Footer";
 import { ApplicationsDashboardPage } from "./layouts/applicationsDashboardPage/ApplicationsDashboardPage";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { ApplicationCheckoutPage } from "./layouts/ApplicationCheckoutPage/ApplicationCheckoutPage";
+import  { SignIn } from "./components/SignInForm";
+import { SignUp } from "./components/SignUpForm";
 
 
 export const App = () => {
@@ -30,6 +32,15 @@ export const App = () => {
           <Route path="/checkout/:applicationId">
             <ApplicationCheckoutPage />
           </Route>
+
+          <Route path="/login">
+            <SignIn />
+          </Route>
+
+          <Route path="/register">
+            <SignUp />
+          </Route>
+
 
           
           

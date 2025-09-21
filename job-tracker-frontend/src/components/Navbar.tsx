@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { SignIn } from "./SignInForm";
+import { SignUp } from "./SignUpForm";
 
 export const Navbar:React.FC = () => {
   return (
@@ -31,9 +33,12 @@ export const Navbar:React.FC = () => {
         </ul>
         <ul className="navbar-nav ms-auto">
           <li className="nav-item m-1">
-            <a type="button" className="btn btn-outline-light" href="#">
+            <NavLink className="nav-link" to="/login">
               Sign In
-            </a>
+            </NavLink>
+            <NavLink className="nav-link" to="/register">
+              Sign Up
+            </NavLink>
           </li>
         </ul>
       </div>
