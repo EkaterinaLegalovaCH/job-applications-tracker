@@ -7,9 +7,10 @@ export const SignIn: React.FC = () => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        
 
-        const res = await fetch("http://localhost:8080/api/auth/login", {
+        const apiUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+        
+        const res = await fetch(`${apiUrl}/api/auth/login`, {
             method: "POST",
             headers: {"Content-Type": "application/x-www-form-urlencoded"},
             credentials: "include",
