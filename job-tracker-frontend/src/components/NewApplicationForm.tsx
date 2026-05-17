@@ -17,36 +17,36 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
   const [jobAddResourse, setJobAddResourse] = useState("");
   const [applicationStatus, setApplicationStatus] = useState("");
 
-  const submitApplication = async () => {
-    if (nameOfCompany && jobTitle && jobUrl && jobAddResourse && applicationStatus) {
-      const payload = {
-        nameOfCompany: nameOfCompany,
-        jobTitle: jobTitle,
-        jobUrl: jobUrl,
-        dateResponse: dateResponse,
-        jobAddResourse: jobAddResourse,
-        applicationStatus: applicationStatus,
-        dateApplying: new Date().toISOString().split("T")[0],
-        nextStep: "",
-        notes: "",
-        img: ""
-      };
+const submitApplication = async () => {
+  if (nameOfCompany && jobTitle && jobUrl && jobAddResourse && applicationStatus) {
+    const payload = {
+      nameOfCompany: nameOfCompany,
+      jobTitle: jobTitle,
+      jobUrl: jobUrl,
+      dateResponse: dateResponse,
+      jobAddResourse: jobAddResourse,
+      applicationStatus: applicationStatus,
+      dateApplying: new Date().toISOString().split("T")[0],
+      nextStep: "",
+      notes: "",
+      img: ""
+    };
 
-      try {
-        const response = await axios.post<ApplicationModel>(`${process.env.REACT_APP_API_BASE_URL}/applications`, payload, {
+    try {
+      const response = await axios.post<ApplicationModel>(
+        `${process.env.REACT_APP_API_BASE_URL}/applications`, 
+        payload, 
+        {
           headers: {
             "Content-type": "application/json",        
           },
-        });
-        
-        const saved = response.data;
+          withCredentials: true   // ← THIS WAS MISSING
+        }
+      );
+      
+      const saved = response.data;
 
-        console.log("Response from backend:", saved);
-       
-
-
-
-        const formattedApp = {
+      const formattedApp = {
         id: saved.id,
         dateApplying: saved.dateApplying,
         nameOfCompany: saved.nameOfCompany,
@@ -56,27 +56,27 @@ export const NewApplicationForm: React.FC<NewApplicationFormProps> = ({ show, se
         jobAddResourse: saved.jobAddResourse,
         applicationStatus: saved.applicationStatus,
       };
-        onApplicationAdded(formattedApp);
 
-      
-        alert("Application added successfully!");  
+      onApplicationAdded(formattedApp);
+      alert("Application added successfully!");  
 
-        setNameOfCompany("");
-        setJobTitle("");
-        setJobUrl("");
-        setDateResponse("");
-        setJobAddResourse("");
-        setApplicationStatus("");
-      
-        setShow(false); // Close modal after submitting
-      } catch (error) {
-        console.error("Error submiting application:", error);
-        alert("Failed to submit application. Please try again.");
-      }
-    } else {
-      alert("Please fill in all fields.");
+      // reset form
+      setNameOfCompany("");
+      setJobTitle("");
+      setJobUrl("");
+      setDateResponse("");
+      setJobAddResourse("");
+      setApplicationStatus("");
+      setShow(false);
+
+    } catch (error: any) {
+      console.error("Error submitting application:", error.response?.data || error);
+      alert("Failed to submit application. Check console for details.");
     }
-  };
+  } else {
+    alert("Please fill in all fields.");
+  }
+};
 
   return (
     <>

@@ -32,7 +32,9 @@ export const ApplicationCheckoutPage = () => {
     
           const baseUrl: string = `${process.env.REACT_APP_API_BASE_URL}/applications/${applicationId}`;
     
-          const response = await fetch(baseUrl);
+          const response = await fetch(baseUrl, {
+            credentials: "include",
+          });
     
           if (!response.ok) {
             throw new Error("Something went wrong!");
@@ -40,16 +42,15 @@ export const ApplicationCheckoutPage = () => {
           
           const responseJson = await response.json();
     
-          const LoadedApplication: ApplicationModel =  {
+          const LoadedApplication: ApplicationModel = {
             id: responseJson.id,
-            dateApplying: responseJson.dateApplying,
-            nameOfCompany: responseJson.nameOfCompany,
-            jobTitle: responseJson.jobTitle,
-            jobUrl: responseJson.jobUrl,
-            dateResponse: responseJson.dateResponse,
-            jobAddResourse: responseJson.jobAddResourse,
-            applicationStatus: responseJson.applicationStatus
-
+            dateApplying: responseJson.dateApplying || responseJson.applicationDate || "",
+            nameOfCompany: responseJson.nameOfCompany || responseJson.companyName || "",
+            jobTitle: responseJson.jobTitle || "",
+            jobUrl: responseJson.jobUrl || responseJson.applicationUrl || "",
+            dateResponse: responseJson.dateResponse || responseJson.responseDate || "",
+            jobAddResourse: responseJson.jobAddResourse || responseJson.jobAddResource || "",
+            applicationStatus: responseJson.applicationStatus || "",
           };
 
           setApplication(LoadedApplication);
@@ -67,13 +68,15 @@ export const ApplicationCheckoutPage = () => {
           setHttpError(error.message);
         });
     
-      }, []);
+      }, [applicationId]);
 
       useEffect(() => {
         const fetchInterviews = async () => {
           const interviewUrl: string = `${process.env.REACT_APP_API_BASE_URL}/interviews/search/findByApplicationId?applicationId=${applicationId}`;
 
-          const responseInterviews = await fetch(interviewUrl);
+          const responseInterviews = await fetch(interviewUrl, {
+            credentials: "include",
+          });
 
           if (!responseInterviews.ok) {
             throw new Error("Something went wrong!");
@@ -81,7 +84,7 @@ export const ApplicationCheckoutPage = () => {
 
           const responseInterviewsJson = await responseInterviews.json();
 
-          const responseData = responseInterviewsJson._embedded.interviews;
+          const responseData = responseInterviewsJson._embedded?.interviews|| responseInterviewsJson || [];
 
           const loadedInterviews: InterviewModel[] = [];
 
@@ -126,6 +129,7 @@ export const ApplicationCheckoutPage = () => {
             headers: {
               "Content-Type": "application/json"
             },
+            credentials: "include",
             body: JSON.stringify(payload)
           });
       console.log("PUT status:", response.status, await response.text());
@@ -144,7 +148,9 @@ export const ApplicationCheckoutPage = () => {
         
         try {
           const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/applications/${application?.id}`, {
-            method: "DELETE"});
+            method: "DELETE",
+            credentials: "include",
+          });
           if (!response.ok) throw new Error("Failed to delete application");  
            window.location.href = "http://localhost:3000/applications";
           

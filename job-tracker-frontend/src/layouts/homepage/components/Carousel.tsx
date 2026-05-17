@@ -16,7 +16,9 @@ export const Carousel = () => {
 
       const url: string = `${baseUrl}?page=0&size=3`;
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        credentials: "include",
+      });
 
       if (!response.ok) {
         throw new Error("Something went wrong!");

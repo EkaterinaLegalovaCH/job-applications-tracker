@@ -1,4 +1,14 @@
-declare module '*.module.css' {
-  const classes: { [key: string]: string };
-  export default classes;
+declare module '*.css' {
+  const content: { [classname: string]: string };
+  export default content;
 }
+
+declare namespace NodeJS {
+  interface ProcessEnv {
+    readonly REACT_APP_API_BASE_URL: string;
+  }
+}
+
+declare var process: {
+  env: NodeJS.ProcessEnv;
+};

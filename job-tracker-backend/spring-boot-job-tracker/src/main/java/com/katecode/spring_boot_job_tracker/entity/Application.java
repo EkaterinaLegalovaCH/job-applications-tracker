@@ -1,5 +1,6 @@
 package com.katecode.spring_boot_job_tracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -9,6 +10,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "application")
 @Data
 public class Application {
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private  User user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

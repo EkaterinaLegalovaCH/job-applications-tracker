@@ -11,6 +11,7 @@ public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
+
     public User register(User user) {
         if (userRepository.findByUserName(user.getUserName()).isPresent()) {
             throw new RuntimeException("Username already exists.");
@@ -26,5 +27,10 @@ public class AuthService {
         }
 
         return existingUser;
+    }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUserName(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

@@ -12,37 +12,44 @@ export const ApplicationsDashboardPage = () => {
   const [httpError, setHttpError] = useState(null);
 
   useEffect(() => {
-    const fetchApplications = async () => {
-      const baseUrl: string = `${process.env.REACT_APP_API_BASE_URL}/applications`;
+const fetchApplications = async () => {
+  const baseUrl: string = `${process.env.REACT_APP_API_BASE_URL}/applications`;
 
-      const url: string = `${baseUrl}?page=0&size=100`;
+  const url: string = `${baseUrl}?page=0&size=100`;
 
-      const response = await fetch(url);
+  const response = await fetch(url, {
+    credentials: "include",
+  });
 
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
-      }
+  if (!response.ok) {
+    throw new Error("Something went wrong!");
+  }
 
-      const responseJson = await response.json();
+  const responseJson = await response.json();
 
-      const responseData = responseJson._embedded.applications;
+  // NEW: works with BOTH old HATEOAS format AND new plain array
+  const responseData = Array.isArray(responseJson) 
+    ? responseJson 
+    : responseJson._embedded?.applications || [];
 
-      const LoadedApplications: ApplicationModel[] = [];
-      for (const key in responseData) {
-        LoadedApplications.push({
-          id: responseData[key].id,
-          dateApplying: responseData[key].dateApplying,
-          nameOfCompany: responseData[key].nameOfCompany,
-          jobTitle: responseData[key].jobTitle,
-          jobUrl: responseData[key].jobUrl,
-          dateResponse: responseData[key].dateResponse,
-          jobAddResourse: responseData[key].jobAddResourse,
-          applicationStatus: responseData[key].applicationStatus,
-        });
-      }
-      setApplications(LoadedApplications);
-      setIsLoading(false);
-    };
+  const LoadedApplications: ApplicationModel[] = [];
+  for (const key in responseData) {
+    const app = responseData[key];
+    LoadedApplications.push({
+      id: app.id,
+      dateApplying: app.dateApplying || app.applicationDate || "",
+      nameOfCompany: app.nameOfCompany || app.companyName || "",
+      jobTitle: app.jobTitle || "",
+      jobUrl: app.jobUrl || app.applicationUrl || "",
+      dateResponse: app.dateResponse || app.responseDate || "",
+      jobAddResourse: app.jobAddResourse || app.jobAddResource || "",
+      applicationStatus: app.applicationStatus || "",
+    });
+  }
+
+  setApplications(LoadedApplications);
+  setIsLoading(false);
+};
 
     fetchApplications().catch((error: any) => {
       setIsLoading(false);
