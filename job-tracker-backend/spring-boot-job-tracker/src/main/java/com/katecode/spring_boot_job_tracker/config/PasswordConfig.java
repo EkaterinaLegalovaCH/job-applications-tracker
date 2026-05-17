@@ -12,7 +12,7 @@ public class PasswordConfig {
     public PasswordEncoder passwordEncoder() {
         // ⚠️ DEV ONLY: this means your passwords are plain text.
         // Once login works, replace this with:
-        // return new BCryptPasswordEncoder();
+        //return new BCryptPasswordEncoder();
         return NoOpPasswordEncoder.getInstance();
     }
 }
