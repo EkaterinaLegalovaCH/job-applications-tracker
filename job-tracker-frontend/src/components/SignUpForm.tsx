@@ -14,9 +14,9 @@ export const SignUp: React.FC = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        const apiUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+        const apiUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080/api";
 
-        const res = await fetch(`${apiUrl}/api/auth/register`, {
+        const res = await fetch(`${apiUrl}/auth/register`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
