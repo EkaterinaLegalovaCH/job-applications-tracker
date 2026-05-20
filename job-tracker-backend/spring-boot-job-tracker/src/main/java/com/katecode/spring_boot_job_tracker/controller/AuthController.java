@@ -33,7 +33,7 @@ public class AuthController {
             User user = authService.login(username, password);
 
             // ← ONLY CHANGE THIS LINE
-            session.setAttribute("userId", user.getId());
+            session.setAttribute("user", user);
 
             return ResponseEntity.ok(Map.of(
                     "message", "Login successful",
@@ -46,8 +46,9 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public void logout(HttpSession session) {
+    public ResponseEntity<?> logout(HttpSession session) {
         session.invalidate();
+        return ResponseEntity.ok(Map.of("message", "Logged out successfully"));
     }
 
     @GetMapping("/test")

@@ -1,9 +1,25 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { SignIn } from "./SignInForm";
-import { SignUp } from "./SignUpForm";
+import { NavLink, useHistory } from "react-router-dom";
+
 
 export const Navbar:React.FC = () => {
+  const navigate = useHistory();
+  const isLoggedIn = !!localStorage.getItem("user");
+
+  const handleLogOut = async () => {
+    try {
+      await fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.error("Logout failed", error)
+    }
+
+    localStorage.removeItem("user");
+    navigate.push("/login");
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
       <span className="navbar-brand">Love 2 Build</span>
@@ -32,14 +48,27 @@ export const Navbar:React.FC = () => {
           </li>
         </ul>
         <ul className="navbar-nav ms-auto">
-          <li className="nav-item m-1">
-            <NavLink className="nav-link" to="/login">
-              Sign In
-            </NavLink>
-            <NavLink className="nav-link" to="/register">
-              Sign Up
-            </NavLink>
-          </li>
+          {!isLoggedIn ? (
+            <>
+              <li className="nav-item m-1">
+              <NavLink className="nav-link" to="/login">
+                Sign In
+              </NavLink>
+              <NavLink className="nav-link" to="/register">
+                Sign Up
+              </NavLink>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item m-1">
+              <button 
+                className="btn btn-outline-light btn-sm" 
+                onClick={handleLogOut}
+              >
+                Sign Out
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
